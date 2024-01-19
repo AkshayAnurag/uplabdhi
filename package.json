@@ -1,0 +1,47 @@
+{
+  "name": "uplabdhi",
+  "version": "1.0.0",
+  "description": "My personal portfolio depicting my achievements",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server .",
+    "build": "Webpack .",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AkshayAnurag/uplabdhi.git"
+  },
+  "keywords": [
+    "uplabdhi",
+    "portfolio"
+  ],
+  "author": "Akshay Anurag",
+  "license": "SEE LICENSE IN LICENSE",
+  "bugs": {
+    "url": "https://github.com/AkshayAnurag/uplabdhi/issues"
+  },
+  "homepage": "https://github.com/AkshayAnurag/uplabdhi#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.23.4",
+    "@babel/core": "^7.23.7",
+    "@babel/eslint-parser": "^7.23.3",
+    "@babel/plugin-transform-runtime": "^7.23.7",
+    "@babel/preset-env": "^7.23.8",
+    "@babel/preset-react": "^7.23.3",
+    "@babel/runtime": "^7.23.8",
+    "babel-loader": "^9.1.3",
+    "eslint": "^8.56.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-jest": "^27.6.3",
+    "path": "^0.12.7",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}
