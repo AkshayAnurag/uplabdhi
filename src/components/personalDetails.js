@@ -8,9 +8,7 @@ import ProfileImage from '../images/avatar.jpg';
 
 const PersonalDetails = () => {
     return (
-        <Grid container spacing={1} columns={{ xs: 4, sm: 8, md: 12 }} direction="row"
-            justifyContent="flex-end"
-            alignItems="stretch">
+        <Grid container spacing={1} columns={{ xs: 4, sm: 8, md: 12 }} direction="row">
             <Grid item xs={2} sm={6} md={10}>
                 <Stack spacing={1} sx={{
                     bgcolor: 'background.paper',

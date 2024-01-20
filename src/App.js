@@ -6,14 +6,14 @@ import storeFileData from './storeData';
 import { update } from "./features/dataSlice";
 import PersonalDetails from "./components/personalDetails";
 import UplabdhiSummary from "./components/uplabdhiSummary";
+import AchievementsViewer from "./components/achievementsViewer";
 
-const App = () =>{
-    const { content } = useSelector((state) => state.data);
+const App = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(update(storeFileData));
-      }, []);
+    }, []);
 
     return (
         <Container sx={{ py: 1 }}>
@@ -25,9 +25,10 @@ const App = () =>{
                     <PersonalDetails></PersonalDetails>
                 </Grid>
 
-                <Grid item xs={2} sm={2} md={4}>
+                <Grid item xs={2} sm={2} md={3}>
                 </Grid>
-                <Grid item xs={2} sm={6} md={8}>
+                <Grid item xs={2} sm={6} md={9}>
+                    <AchievementsViewer></AchievementsViewer>
                 </Grid>
             </Grid>
         </Container>
