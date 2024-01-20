@@ -1,12 +1,13 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import Container from '@mui/material/Container';
+import Stack from '@mui/material/Stack';
 import Grid from '@mui/material/Grid';
 import storeFileData from './storeData';
 import { update } from "./features/dataSlice";
 import PersonalDetails from "./components/personalDetails";
 import UplabdhiSummary from "./components/uplabdhiSummary";
 import AchievementsViewer from "./components/achievementsViewer";
+import RoleSelector from "./components/roleSelector";
 
 const App = () => {
     const dispatch = useDispatch();
@@ -16,22 +17,21 @@ const App = () => {
     }, []);
 
     return (
-        <Container sx={{ py: 1 }}>
-            <Grid container spacing={8} columns={{ xs: 4, sm: 8, md: 12 }}>
-                <Grid item xs={2} sm={6} md={8}>
-                    <UplabdhiSummary></UplabdhiSummary>
-                </Grid>
-                <Grid item xs={2} sm={2} md={4}>
-                    <PersonalDetails></PersonalDetails>
-                </Grid>
+            <Stack direction="row" spacing={2}>
+                <Stack>
+                    <RoleSelector />
+                </Stack>
 
-                <Grid item xs={2} sm={2} md={3}>
-                </Grid>
-                <Grid item xs={2} sm={6} md={9}>
-                    <AchievementsViewer></AchievementsViewer>
-                </Grid>
-            </Grid>
-        </Container>
+                <Stack spacing={2}>
+                    <Stack direction="row" spacing={1}>
+                        <UplabdhiSummary />
+                        <PersonalDetails />
+                    </Stack>
+                    <Stack>
+                        <AchievementsViewer />
+                    </Stack>
+                </Stack>
+            </Stack>
     )
 }
 

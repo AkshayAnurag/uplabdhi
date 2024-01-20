@@ -1,5 +1,4 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -7,11 +6,8 @@ import CloudIcon from '@mui/icons-material/Cloud';
 import LocalPoliceIcon from '@mui/icons-material/LocalPolice';
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
-import PersonalDetails from "./personalDetails";
 
 const AchievementsViewer = () => {
-    const { content } = useSelector((state) => state.data);
-
     const [index, setIndex] = React.useState(0);
 
     const handleTabSwitch = (_, newIndex) => {
