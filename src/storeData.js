@@ -1,37 +1,37 @@
 const data = [
     {
         "type": "project",
-        "name": "uplabdhi",
-        "visitUrl": "https://www.uplabdhi-akshay-anurag.pages.dev",
-        "thumbnailPath": "",
-        "fullViewPath": "",
+        "name": "Uplabdhi",
+        "visitUrl": "https://uplabdhi-akshay-anurag.pages.dev",
+        "thumbnailPath": "uplabdhi_thumbnail.png",
+        "fullViewPath": "uplabdhi_full_view.png",
         "techStacks": [
-            "React",
-            "Redux",
-            "Javascript",
-            "CSS",
-            "MUI (Material UI)"
+            "react",
+            "redux",
+            "javaScript",
+            "css",
+            "muiReactComponentLibrary"
         ],
         "roles": [
-            "React Developer",
-            "Front-end Developer"
+            "reactDeveloper",
+            "frontEndDeveloper"
         ]
     },
     {
-        "type": "industry_certification",
-        "examType": "non-proctored",
-        "validFrom": "",
-        "validTill": "",
+        "type": "industryRecognizedCertificate",
+        "name": "Neo4j Certified Professional",
+        "examType": "nonProctored",
+        "validFrom": "29 Dec, 2023",
         "validationUrl": "",
-        "thumbnailPath": "",
-        "fullViewPath": "",
+        "thumbnailPath": "uplabdhi_thumbnail.png",
+        "fullViewPath": "uplabdhi_full_view.png",
         "techStacks": [
-            "Neo4J",
-            "Graph Database"
+            "neo4j",
+            "graphDatabase"
         ],
         "roles": [
-            "Neo4J Developer",
-            "Graph Database Administrator"
+            "neo4jDeveloper",
+            "graphDatabaseDeveloper"
         ]
     }
 ];

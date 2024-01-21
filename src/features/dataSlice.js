@@ -3,11 +3,11 @@ import { createSlice } from '@reduxjs/toolkit';
 export const dataSlice = createSlice({
   name: 'data',
   initialState: {
-    content: []
+    achievements: []
   },
   reducers: {
     update: (state, action) => {
-      state.content.push(...action.payload)
+      state.achievements.push(...action.payload)
     },
   },
 });

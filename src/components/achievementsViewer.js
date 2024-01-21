@@ -1,72 +1,82 @@
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import Box from '@mui/material/Box';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
-import { update } from "../features/viewSlice";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { Box, Button, Card, CardActions, CardContent, CardHeader, Grid, Typography } from "@mui/material";
+import LifetimeValidity from '../images/lifetime_validity.png';
+import AchievementDetails from "./achievementDetails";
 
 const AchievementsViewer = () => {
-    const { role } = useSelector((state) => state.view);
-    const dispatch = useDispatch();
+    const { roleId, achievementTypeId } = useSelector((state) => state.view);
+    const { achievements } = useSelector((state) => state.data);
 
-    const handleTabSwitch = (_, newIndex) => {
-        dispatch(update({
-            role: newIndex
-        }));
-    };
+    const [ showDetails, setShowDetails ] = useState(false);
+    const [ selectedAchievement, setSelectedAchievement ] = useState({});;
 
-    const roles = [
-        {
-            name: "All",
-            icon: <VerifiedUserIcon/>
-        },
-        {
-            name: "Python Developer",
-            icon: <VerifiedUserIcon/>
-        },
-        {
-            name: "Flutter Developer",
-            icon: <VerifiedUserIcon/>
-        },
-        {
-            name: "React Developer",
-            icon: <VerifiedUserIcon/>
-        },
-        {
-            name: "Front-end Developer",
-            icon: <VerifiedUserIcon/>
-        },
-        {
-            name: "Back-end Developer",
-            icon: <VerifiedUserIcon/>
-        },
-        {
-            name: "Full-Stack Developer",
-            icon: <VerifiedUserIcon/>
-        },
-        {
-            name: "Cloud Developer",
-            icon: <VerifiedUserIcon/>
-        },
-        {
-            name: "Graph Database Administrator",
-            icon: <VerifiedUserIcon/>
-        },
-        {
-            name: "Neo4J Developer",
-            icon: <VerifiedUserIcon/>
-        },
-    ]
+    const getFilteredAchievements = () => {
+        return achievements.filter(
+            (achievement) => (achievementTypeId === "__all__" ? true : achievement.type === achievementTypeId) && (roleId === "__all__" ? true : achievement.roles.includes(roleId))
+        )
+    }
+
+    const getAchievementValidity = (achievement) => {
+        if (achievement.type === "project") {
+            return <Box sx={{ height: 22 }}></Box>   // No validity for projects
+        }
+
+        return (
+            <Grid container spacing={1} columns={{ xs: 2, sm: 8, md: 12 }} sx={{ height: 30 }}>
+                <Grid item xs={1} sm={4} md={6}>
+                    <Typography>
+                        {achievement.validFrom} {achievement.validTill ? '- ' + achievement.validTill : ""}
+                    </Typography>
+                </Grid>
+                <Grid item xs={1} sm={4} md={6} sx={{ mt: -1, pr: -2 }}>
+                    {achievement.validTill ? null : <img src={LifetimeValidity} width="100" />}
+                </Grid>
+            </Grid>
+        )
+    }
+
+    const showAchievementDetails = (achievement) => {
+        setSelectedAchievement(achievement);
+        setShowDetails(true);
+    }
 
     return (
-        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-            <Tabs value={role} onChange={handleTabSwitch} variant="scrollable" scrollButtons="auto" orientation="vertical">
-                {roles.map((role) => (
-                    <Tab icon={role.icon} label={role.name} wrapped key={role.name}/>
-                ))}
-            </Tabs>
-        </Box>
+        <>
+            <Grid container spacing={10} sx={{ px: 3, py: 4 }} columns={{ xs: 2, sm: 8, md: 12 }}>
+                {getFilteredAchievements().map((achievement) => {
+                    return (
+                        <Grid item xs={2} sm={2} md={3} key={achievement.name}>
+                            <Card raised sx={{ width: 400, height: 280 }}>
+                                <CardHeader title={achievement.name} subheader={getAchievementValidity(achievement)} />
+                                <CardContent>
+                                    <Box sx={{ height: 110 }}>
+                                        <Grid container spacing={1} columns={{ xs: 2, sm: 8, md: 12 }}>
+                                            <Grid item xs={2} sm={4} md={4}>
+                                                <img src={require(`../images/${achievement.thumbnailPath}`).default} width="200" />
+                                            </Grid>
+                                            <Grid item xs={2} sm={4} md={8}>
+
+                                            </Grid>
+                                        </Grid>
+                                    </Box>
+                                </CardContent>
+                                <CardActions>
+                                    <Button size="medium" variant="contained" color="success" onClick={() => { showAchievementDetails(achievement) }}>View details</Button>
+                                    {
+                                        achievement.type === "project" ?
+                                            <Button target="_blank" size="medium" variant="contained" color="success" href={achievement.visitUrl}>Visit</Button> :
+                                            <Button size="medium" variant="contained" color="success">Validate</Button>
+                                    }
+                                </CardActions>
+                            </Card>
+                        </Grid>
+                    );
+                })}
+            </Grid>
+
+            <AchievementDetails open={showDetails} achievement={selectedAchievement} setShowDetails={setShowDetails}/>
+        </>
     );
 }
 

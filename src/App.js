@@ -1,12 +1,11 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import Stack from '@mui/material/Stack';
 import storeFileData from './storeData';
 import { update } from "./features/dataSlice";
 import PersonalDetails from "./components/personalDetails";
-import UplabdhiSummary from "./components/uplabdhiSummary";
-import AchievementsTabs from "./components/achievementsTabs";
+import AchievementTypeSelector from "./components/achievementTypeSelector";
 import RoleSelector from "./components/roleSelector";
+import { Box, CssBaseline, Grid } from "@mui/material";
 
 const App = () => {
     const dispatch = useDispatch();
@@ -16,21 +15,21 @@ const App = () => {
     }, []);
 
     return (
-            <Stack direction="row" spacing={2}>
-                <Stack>
+        <>
+            <CssBaseline />
+            <Grid container spacing={1} columns={{ xs: 2, sm: 8, md: 16 }} sx={{ px: 1 }}>
+                <Grid item xs={2} sm={2} md={2}>
                     <RoleSelector />
-                </Stack>
-
-                <Stack spacing={2}>
-                    <Stack direction="row" spacing={1}>
-                        <UplabdhiSummary />
+                </Grid>
+                <Grid item xs={2} sm={6} md={14}>
+                    <AchievementTypeSelector />
+                    <Box component="footer" sx={{ py: 3, px: 2, height: "15vh" }}>
                         <PersonalDetails />
-                    </Stack>
-                    <Stack>
-                        <AchievementsTabs />
-                    </Stack>
-                </Stack>
-            </Stack>
+                    </Box>
+                </Grid>
+            </Grid>
+
+        </>
     )
 }
 

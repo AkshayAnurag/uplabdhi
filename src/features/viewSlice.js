@@ -3,13 +3,13 @@ import { createSlice } from '@reduxjs/toolkit';
 export const viewSlice = createSlice({
     name: 'view',
     initialState: {
-        role: 0,
-        typeIndex: 3
+        roleId: "__all__",
+        achievementTypeId: "__all__"
     },
     reducers: {
         update: (state, action) => {
-            state.role = action.payload.role !== undefined ? action.payload.role : state.role;
-            state.typeIndex = action.payload.typeIndex !== undefined ? action.payload.typeIndex : state.typeIndex;
+            state.roleId = action.payload.roleId !== undefined ? action.payload.roleId : state.roleId;
+            state.achievementTypeId = action.payload.achievementTypeId !== undefined ? action.payload.achievementTypeId : state.achievementTypeId;
         },
     },
 });
