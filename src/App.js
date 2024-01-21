@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import Stack from '@mui/material/Stack';
-import Grid from '@mui/material/Grid';
 import storeFileData from './storeData';
 import { update } from "./features/dataSlice";
 import PersonalDetails from "./components/personalDetails";

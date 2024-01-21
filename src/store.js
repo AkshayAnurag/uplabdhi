@@ -1,8 +1,10 @@
-import { configureStore } from '@reduxjs/toolkit'
-import dataReducer from './features/dataSlice'
+import { configureStore } from '@reduxjs/toolkit';
+import dataReducer from './features/dataSlice';
+import viewReducer from './features/viewSlice';
 
 export default configureStore({
   reducer: {
-    data: dataReducer
+    data: dataReducer,
+    view: viewReducer
   },
-})
+});

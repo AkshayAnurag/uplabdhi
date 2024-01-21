@@ -1,44 +1,72 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import Stack from '@mui/material/Stack';
-import Divider from '@mui/material/Divider';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import List from '@mui/material/List';
+import { useSelector, useDispatch } from "react-redux";
+import Box from '@mui/material/Box';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
 import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
+import { update } from "../features/viewSlice";
 
 const RoleSelector = () => {
-    const { content } = useSelector((state) => state.data);
+    const { role } = useSelector((state) => state.view);
+    const dispatch = useDispatch();
+
+    const handleTabSwitch = (_, newIndex) => {
+        dispatch(update({
+            role: newIndex
+        }));
+    };
+
     const roles = [
-        "Python Developer",
-        "Flutter Developer",
-        "React Developer",
-        "Front-end Developer",
-        "Back-end Developer",
-        "Full-Stack Developer",
-        "Cloud Developer",
-        "Graph Database Administrator",
-        "Neo4J Developer"
+        {
+            name: "All",
+            icon: <VerifiedUserIcon/>
+        },
+        {
+            name: "Python Developer",
+            icon: <VerifiedUserIcon/>
+        },
+        {
+            name: "Flutter Developer",
+            icon: <VerifiedUserIcon/>
+        },
+        {
+            name: "React Developer",
+            icon: <VerifiedUserIcon/>
+        },
+        {
+            name: "Front-end Developer",
+            icon: <VerifiedUserIcon/>
+        },
+        {
+            name: "Back-end Developer",
+            icon: <VerifiedUserIcon/>
+        },
+        {
+            name: "Full-Stack Developer",
+            icon: <VerifiedUserIcon/>
+        },
+        {
+            name: "Cloud Developer",
+            icon: <VerifiedUserIcon/>
+        },
+        {
+            name: "Graph Database Administrator",
+            icon: <VerifiedUserIcon/>
+        },
+        {
+            name: "Neo4J Developer",
+            icon: <VerifiedUserIcon/>
+        },
     ]
 
     return (
-        <Stack>
-            <List>
-                {roles.map((text) => (
-                    <ListItem key={text} disablePadding>
-                        <ListItemButton>
-                            <ListItemIcon>
-                                {<VerifiedUserIcon />}
-                            </ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItemButton>
-                    </ListItem>
+        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+            <Tabs value={role} onChange={handleTabSwitch} variant="scrollable" scrollButtons="auto" orientation="vertical">
+                {roles.map((role) => (
+                    <Tab icon={role.icon} label={role.name} wrapped key={role.name}/>
                 ))}
-            </List>
-            <Divider />
-        </Stack>
+            </Tabs>
+        </Box>
     );
 }
 

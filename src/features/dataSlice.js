@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit';
 
 export const dataSlice = createSlice({
   name: 'data',
@@ -10,8 +10,8 @@ export const dataSlice = createSlice({
       state.content.push(...action.payload)
     },
   },
-})
+});
 
-export const { update } = dataSlice.actions
+export const { update } = dataSlice.actions;
 
-export default dataSlice.reducer
+export default dataSlice.reducer;
