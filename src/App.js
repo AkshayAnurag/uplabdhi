@@ -5,7 +5,7 @@ import storeFileData from './storeData';
 import { update } from "./features/dataSlice";
 import PersonalDetails from "./components/personalDetails";
 import UplabdhiSummary from "./components/uplabdhiSummary";
-import AchievementsViewer from "./components/achievementsViewer";
+import AchievementsTabs from "./components/achievementsTabs";
 import RoleSelector from "./components/roleSelector";
 
 const App = () => {
@@ -27,7 +27,7 @@ const App = () => {
                         <PersonalDetails />
                     </Stack>
                     <Stack>
-                        <AchievementsViewer />
+                        <AchievementsTabs />
                     </Stack>
                 </Stack>
             </Stack>

@@ -3,38 +3,70 @@ import { useSelector, useDispatch } from "react-redux";
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import CloudIcon from '@mui/icons-material/Cloud';
-import LocalPoliceIcon from '@mui/icons-material/LocalPolice';
-import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import { update } from "../features/viewSlice";
 
 const AchievementsViewer = () => {
-    const { typeIndex } = useSelector((state) => state.view);
+    const { role } = useSelector((state) => state.view);
     const dispatch = useDispatch();
 
     const handleTabSwitch = (_, newIndex) => {
         dispatch(update({
-            typeIndex: newIndex
+            role: newIndex
         }));
     };
 
-    return (
-        <>
-            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                <Tabs value={typeIndex} onChange={handleTabSwitch} variant="scrollable" scrollButtons="auto">
-                    <Tab icon={<CloudIcon />} label="Projects" />
-                    <Tab icon={<VerifiedUserIcon />} label="Industry-Recognized Certificates" wrapped />
-                    <Tab icon={<LocalPoliceIcon />} label="Assessment-Based Certificates" wrapped />
-                    <Tab icon={<TaskAltIcon />} label="Course Completion Certificates" wrapped />
-                </Tabs>
-            </Box>
+    const roles = [
+        {
+            name: "All",
+            icon: <VerifiedUserIcon/>
+        },
+        {
+            name: "Python Developer",
+            icon: <VerifiedUserIcon/>
+        },
+        {
+            name: "Flutter Developer",
+            icon: <VerifiedUserIcon/>
+        },
+        {
+            name: "React Developer",
+            icon: <VerifiedUserIcon/>
+        },
+        {
+            name: "Front-end Developer",
+            icon: <VerifiedUserIcon/>
+        },
+        {
+            name: "Back-end Developer",
+            icon: <VerifiedUserIcon/>
+        },
+        {
+            name: "Full-Stack Developer",
+            icon: <VerifiedUserIcon/>
+        },
+        {
+            name: "Cloud Developer",
+            icon: <VerifiedUserIcon/>
+        },
+        {
+            name: "Graph Database Administrator",
+            icon: <VerifiedUserIcon/>
+        },
+        {
+            name: "Neo4J Developer",
+            icon: <VerifiedUserIcon/>
+        },
+    ]
 
-            {typeIndex === 0 && <Box>A</Box>}
-            {typeIndex === 1 && <Box>B</Box>}
-            {typeIndex === 2 && <Box>C</Box>}
-            {typeIndex === 3 && <Box>D</Box>}
-        </>
+    return (
+        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+            <Tabs value={role} onChange={handleTabSwitch} variant="scrollable" scrollButtons="auto" orientation="vertical">
+                {roles.map((role) => (
+                    <Tab icon={role.icon} label={role.name} wrapped key={role.name}/>
+                ))}
+            </Tabs>
+        </Box>
     );
 }
 

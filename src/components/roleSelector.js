@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import { update } from "../features/viewSlice";
+import { roles, roleIcons } from "../constants";
 
 const RoleSelector = () => {
     const { role } = useSelector((state) => state.view);
@@ -16,55 +16,15 @@ const RoleSelector = () => {
         }));
     };
 
-    const roles = [
-        {
-            name: "All",
-            icon: <VerifiedUserIcon/>
-        },
-        {
-            name: "Python Developer",
-            icon: <VerifiedUserIcon/>
-        },
-        {
-            name: "Flutter Developer",
-            icon: <VerifiedUserIcon/>
-        },
-        {
-            name: "React Developer",
-            icon: <VerifiedUserIcon/>
-        },
-        {
-            name: "Front-end Developer",
-            icon: <VerifiedUserIcon/>
-        },
-        {
-            name: "Back-end Developer",
-            icon: <VerifiedUserIcon/>
-        },
-        {
-            name: "Full-Stack Developer",
-            icon: <VerifiedUserIcon/>
-        },
-        {
-            name: "Cloud Developer",
-            icon: <VerifiedUserIcon/>
-        },
-        {
-            name: "Graph Database Administrator",
-            icon: <VerifiedUserIcon/>
-        },
-        {
-            name: "Neo4J Developer",
-            icon: <VerifiedUserIcon/>
-        },
-    ]
-
     return (
-        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+        <Box>
             <Tabs value={role} onChange={handleTabSwitch} variant="scrollable" scrollButtons="auto" orientation="vertical">
-                {roles.map((role) => (
-                    <Tab icon={role.icon} label={role.name} wrapped key={role.name}/>
-                ))}
+                {
+                    roles.map((role) => {
+                        let RoleIcon = roleIcons[role];
+                        return <Tab icon={<RoleIcon fontSize="large"/>} label={role} wrapped key={role} />;
+                    })
+                }
             </Tabs>
         </Box>
     );
