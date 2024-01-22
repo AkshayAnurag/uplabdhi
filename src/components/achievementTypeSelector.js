@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
@@ -11,15 +11,7 @@ import { Badge } from "@mui/material";
 const AchievementTypeSelector = () => {
     const { achievements } = useSelector((state) => state.data);
     const { achievementTypeId, roleId } = useSelector((state) => state.view);
-    const [achievementTypeIndex, setAchievementTypeIndex] = useState(achievementTypes.findIndex((achievementType) => achievementType.id === achievementTypeId));
     const dispatch = useDispatch();
-
-    const handleTabSwitch = (_, newIndex) => {
-        setAchievementTypeIndex(newIndex);
-        dispatch(update({
-            achievementTypeId: achievementTypes[newIndex].id
-        }));
-    };
 
     const getAchievementCountForType = (achievementTypeId) => {
         if (achievementTypeId === "__all__" && roleId === "__all__") {
@@ -31,16 +23,22 @@ const AchievementTypeSelector = () => {
         ).length;
     }
 
+    const handleTabSwitch = (_, newId) => {
+        dispatch(update({
+            achievementTypeId: newId
+        }));
+    };
+
     return (
         <Box sx={{ height: "85vh" }}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                <Tabs value={achievementTypeIndex} onChange={handleTabSwitch} variant="scrollable" scrollButtons="auto">
+                <Tabs value={achievementTypeId} onChange={handleTabSwitch} variant="scrollable" scrollButtons="auto">
                     {
-                        achievementTypes.map((achievementType) => {
+                        achievementTypes.filter((achievementType) => getAchievementCountForType(achievementType.id) > 0).map((achievementType) => {
                             return (
                                 <Tab
                                     icon={<Badge badgeContent={getAchievementCountForType(achievementType.id)} color="primary"><achievementType.icon fontSize="large" /></Badge>}
-                                    label={achievementType.name} key={achievementType.id} sx={{ pt: 3, width: 220 }} />
+                                    label={achievementType.name} key={achievementType.id} sx={{ pt: 3, width: 220 }} value={achievementType.id}/>
                             );
                         })
                     }

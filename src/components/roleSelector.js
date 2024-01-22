@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
@@ -10,13 +10,12 @@ import { Badge } from "@mui/material";
 const RoleSelector = () => {
     const { achievements } = useSelector((state) => state.data);
     const { roleId } = useSelector((state) => state.view);
-    const [ roleIndex, setRoleIndex ] = useState(roles.findIndex((role) => role.id === roleId));
     const dispatch = useDispatch();
 
-    const handleTabSwitch = (_, newIndex) => {
-        setRoleIndex(newIndex);
+    const handleTabSwitch = (_, newId) => {
         dispatch(update({
-            roleId: roles[newIndex].id
+            roleId: newId,
+            achievementTypeId: "__all__"
         }));
     };
 
@@ -32,13 +31,13 @@ const RoleSelector = () => {
 
     return (
         <Box sx={{ display: 'flex', height: "100vh" }}>
-            <Tabs value={roleIndex} onChange={handleTabSwitch} variant="scrollable" scrollButtons="auto" orientation="vertical">
+            <Tabs value={roleId} onChange={handleTabSwitch} variant="scrollable" scrollButtons="auto" orientation="vertical">
                 {
-                    roles.map((role) => {
+                    roles.filter((role) => getAchievementCountForRole(role.id) > 0).map((role) => {
                         return (
                             <Tab
                                 icon={<Badge badgeContent={getAchievementCountForRole(role.id)} color="primary"><role.icon fontSize="large" /></Badge>}
-                                label={role.name} wrapped key={role.id} sx={{ py: 3, px: 0 }} />
+                                label={role.name} wrapped key={role.id} sx={{ py: 3, px: 0 }} value={role.id} />
                         );
                     })
                 }

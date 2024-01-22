@@ -22,10 +22,12 @@ const AchievementDetails = (props) => {
     return (
         <Dialog
             open={open}
+            fullWidth={true}
+            maxWidth="lg"
             onClose={handleClose}
             scroll="paper"
         >
-            <DialogTitle>{props.achievement.name}</DialogTitle>
+            <DialogTitle>{achievement.name}</DialogTitle>
             <DialogContent dividers={scroll === 'paper'}>
                 <DialogContentText
                     tabIndex={-1}
@@ -41,7 +43,9 @@ Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`,
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
-                <Button onClick={handleClose}>Cancel</Button>
+                <Button variant="outlined" onClick={handleClose}>Previous</Button>
+                <Button variant="outlined" onClick={handleClose}>Next</Button>
+                <Button variant="outlined" onClick={handleClose}>Close</Button>
             </DialogActions>
         </Dialog>
     );
