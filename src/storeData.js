@@ -3,8 +3,7 @@ const data = [
         "type": "project",
         "name": "Uplabdhi",
         "visitUrl": "https://uplabdhi-akshay-anurag.pages.dev",
-        "thumbnailPath": "uplabdhi_thumbnail.png",
-        "fullViewPath": "uplabdhi_full_view.png",
+        "imagePath": "uplabdhi.png",
         "techStacks": [
             "react",
             "redux",
@@ -22,9 +21,8 @@ const data = [
         "name": "Neo4j Certified Professional",
         "examType": "nonProctored",
         "validFrom": "29 Dec, 2023",
-        "validationUrl": "",
-        "thumbnailPath": "uplabdhi_thumbnail.png",
-        "fullViewPath": "uplabdhi_full_view.png",
+        "validationUrl": "https://graphacademy.neo4j.com/c/c58f44d0-0bd4-465d-974a-ccdb14daa73f/",
+        "imagePath": "neo4j_certified_professional.png",
         "techStacks": [
             "neo4j",
             "graphDatabase"
