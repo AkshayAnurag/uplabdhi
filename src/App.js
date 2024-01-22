@@ -11,6 +11,19 @@ const App = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        storeFileData.sort((achievement1, achievement2) => {
+            if (!achievement1.validFrom && !achievement2.validFrom) {
+                return achievement1.name.localeCompare(achievement2.name)
+            }
+            if (!achievement1.validFrom) {
+                return -1
+            }
+            if (!achievement2.validFrom) {
+                return 1
+            }
+
+            return new Date(achievement2.validFrom) - new Date(achievement1.validFrom)
+        })
         dispatch(update(storeFileData));
     }, []);
 
