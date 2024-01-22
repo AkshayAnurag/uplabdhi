@@ -30,22 +30,24 @@ const AchievementTypeSelector = () => {
     };
 
     return (
-        <Box sx={{ height: "85vh" }}>
+        <Box>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                <Tabs value={achievementTypeId} onChange={handleTabSwitch} variant="scrollable" scrollButtons="auto">
+                <Tabs value={achievementTypeId} onChange={handleTabSwitch} variant="scrollable" scrollButtons="auto" allowScrollButtonsMobile>
                     {
                         achievementTypes.filter((achievementType) => getAchievementCountForType(achievementType.id) > 0).map((achievementType) => {
                             return (
                                 <Tab
                                     icon={<Badge badgeContent={getAchievementCountForType(achievementType.id)} color="primary"><achievementType.icon fontSize="large" /></Badge>}
-                                    label={achievementType.name} key={achievementType.id} sx={{ pt: 3, width: 220 }} value={achievementType.id}/>
+                                    label={achievementType.name} key={achievementType.id} sx={{ pt: 3, width: 220 }} value={achievementType.id} />
                             );
                         })
                     }
                 </Tabs>
             </Box>
 
-            <AchievementsViewer />
+            <Box sx={{ height: "72vh", overflow: 'auto' }}>
+                <AchievementsViewer />
+            </Box>
         </Box>
     );
 }

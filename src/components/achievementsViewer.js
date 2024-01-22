@@ -57,25 +57,33 @@ const AchievementsViewer = () => {
                                 <CardHeader
                                     title={
                                         achievement.name.length >= 30 ?
-                                            <Tooltip title={achievement.name}>{achievement.name.substring(0, 30)}{achievement.name.length >= 30 ? "..." : ""}</Tooltip> :
+                                            <Tooltip title={achievement.name}><Typography variant="h5">{achievement.name.substring(0, 30)}{achievement.name.length >= 30 ? "..." : ""}</Typography></Tooltip> :
                                             achievement.name
                                     }
                                     subheader={getAchievementValidity(achievement)} />
                                 <CardContent>
                                     <Box sx={{ height: 110 }}>
                                         <Grid container spacing={1} justifyContent="space-between">
-                                            <Grid item md={6}>
-                                                <img src={require(`../images/${achievement.imagePath}`).default} height="110" width="170" />
+                                            <Grid item xs={6}>
+                                                <img src={require(`../images/${achievement.imagePath}`).default} height="110" width="160" />
                                             </Grid>
-                                            <Grid item md={6}>
-                                                <Grid container columnSpacing={1} justifyContent="space-around" alignItems={"center"}>
-                                                    <Grid item md={12}>
+                                            <Grid item xs={6}>
+                                                <Grid container columnSpacing={1} alignItems={"center"}>
+                                                    <Grid item xs={12}>
+                                                        <Grid container>
+                                                            <Grid item xs={6}>
+                                                                {achievement.issuer ? <img src={require(`../images/${achievement.issuer}.png`).default} height="30" width="100" /> : null}
+                                                            </Grid>
+                                                        </Grid>
+                                                    </Grid>
+
+                                                    <Grid item xs={12}>
                                                         <Grid container>
                                                             {
                                                                 achievement.techStacks.slice(0, 3).map((achievementTechStack) => {
                                                                     const TechStackIcon = techStacks.find((techStack) => techStack.id === achievementTechStack).icon;
                                                                     return (
-                                                                        <Grid item md={3} key={achievementTechStack}>
+                                                                        <Grid item xs={3} key={achievementTechStack}>
                                                                             <TechStackIcon fontSize="large" color="pink" />
                                                                         </Grid>
                                                                     )
@@ -83,28 +91,17 @@ const AchievementsViewer = () => {
                                                             }
                                                             {
                                                                 achievement.techStacks.length > 3 ?
-                                                                    <Grid item md={3}>
+                                                                    <Grid item xs={3}>
                                                                         <Avatar sx={{ width: 40, height: 40 }}>{`${'+'}${achievement.techStacks.length - 3}`}</Avatar>
                                                                     </Grid> : null
                                                             }
                                                         </Grid>
                                                     </Grid>
 
-                                                    <Grid item md={12}>
-                                                        <Grid container>
-                                                            <Grid item md={6}>
-                                                                {(achievement.type === "project" || achievement.validTill) ? null : null}
-                                                            </Grid>
-                                                            <Grid item md={6}>
-                                                                {(achievement.type === "project" || achievement.validTill) ? null : null}
-                                                            </Grid>
-                                                        </Grid>
-                                                    </Grid>
-
-                                                    <Grid item md={12}>
+                                                    <Grid item xs={12}>
                                                         <Grid container>
 
-                                                            <Grid item md={6}>
+                                                            <Grid item xs={6}>
                                                                 {(achievement.type === "project" || achievement.validTill) ? null : null}
                                                             </Grid>
                                                         </Grid>
