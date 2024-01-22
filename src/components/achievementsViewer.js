@@ -1,64 +1,115 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Box, Button, Card, CardActions, CardContent, CardHeader, Grid, Typography } from "@mui/material";
+import { Avatar, Box, Button, Card, CardActions, CardContent, CardHeader, Divider, Grid, Tooltip, Typography } from "@mui/material";
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import LifetimeValidity from '../images/lifetime_validity.png';
 import AchievementDetails from "./achievementDetails";
+import { techStacks } from "../constants";
 
 const AchievementsViewer = () => {
     const { roleId, achievementTypeId } = useSelector((state) => state.view);
     const { achievements } = useSelector((state) => state.data);
 
     const [showDetails, setShowDetails] = useState(false);
-    const [selectedAchievement, setSelectedAchievement] = useState({});;
+    const [selectedAchievementIndex, setSelectedAchievementIndex] = useState(null);
+    const [selectedAchievement, setSelectedAchievement] = useState(null);
+    const [filteredAchievements, setFilteredAchievements] = useState([]);
 
-    const getFilteredAchievements = () => {
-        return achievements.filter(
+    useEffect(() => {
+        setFilteredAchievements(achievements.filter(
             (achievement) => (achievementTypeId === "__all__" ? true : achievement.type === achievementTypeId) && (roleId === "__all__" ? true : achievement.roles.includes(roleId))
-        )
-    }
+        ));
+    }, [achievementTypeId, roleId, achievements])
 
     const getAchievementValidity = (achievement) => {
         if (achievement.type === "project") {
-            return <Box sx={{ height: 22 }}></Box>   // No validity for projects
+            return <Box sx={{ height: 16 }}></Box>   // No validity for projects
         }
 
         return (
-            <Grid container spacing={1} columns={{ xs: 2, sm: 8, md: 12 }} sx={{ height: 30 }}>
-                <Grid item xs={1} sm={4} md={6}>
-                    <Typography>
-                        {achievement.validFrom} {achievement.validTill ? '- ' + achievement.validTill : ""}
-                    </Typography>
-                </Grid>
-                <Grid item xs={1} sm={4} md={6} sx={{ mt: -1, pr: -2 }}>
-                    {achievement.validTill ? null : <img src={LifetimeValidity} width="100" />}
-                </Grid>
-            </Grid>
+            <Box sx={{ height: 16 }}>
+                <Typography>
+                    Achieved on {achievement.validFrom} | {achievement.validTill ? 'Valid till ' + achievement.validTill : "No expiry"}
+                </Typography>
+            </Box>
         )
     }
 
     const showAchievementDetails = (achievement) => {
+        setSelectedAchievementIndex(filteredAchievements.indexOf(achievement))
         setSelectedAchievement(achievement);
+        setShowDetails(true);
+    }
+
+    const showAchievementDetailsByIndex = (achievementIndex) => {
+        setSelectedAchievementIndex(achievementIndex)
+        setSelectedAchievement(filteredAchievements[achievementIndex]);
         setShowDetails(true);
     }
 
     return (
         <>
-            <Grid container spacing={10} sx={{ px: 3, py: 4 }} columns={{ xs: 2, sm: 8, md: 12 }}>
-                {getFilteredAchievements().map((achievement) => {
+            <Grid container gap={2} sx={{ px: 2, py: 4 }}>
+                {filteredAchievements.map((achievement) => {
                     return (
-                        <Grid item xs={2} sm={2} md={3} key={achievement.name}>
-                            <Card raised sx={{ width: 400, height: 280 }}>
-                                <CardHeader title={achievement.name} subheader={getAchievementValidity(achievement)} />
+                        <Grid key={achievement.name}>
+                            <Card raised sx={{ width: 380, height: 280 }}>
+                                <CardHeader
+                                    title={
+                                        achievement.name.length >= 30 ?
+                                            <Tooltip title={achievement.name}>{achievement.name.substring(0, 30)}{achievement.name.length >= 30 ? "..." : ""}</Tooltip> :
+                                            achievement.name
+                                    }
+                                    subheader={getAchievementValidity(achievement)} />
                                 <CardContent>
                                     <Box sx={{ height: 110 }}>
-                                        <Grid container spacing={1} columns={{ xs: 2, sm: 8, md: 12 }}>
-                                            <Grid item xs={2} sm={4} md={4}>
+                                        <Grid container spacing={1} justifyContent="space-between">
+                                            <Grid item md={6}>
                                                 <img src={require(`../images/${achievement.imagePath}`).default} height="110" width="170" />
                                             </Grid>
-                                            <Grid item xs={2} sm={4} md={8}>
+                                            <Grid item md={6}>
+                                                <Grid container columnSpacing={1} justifyContent="space-around" alignItems={"center"}>
+                                                    <Grid item md={12}>
+                                                        <Grid container>
+                                                            {
+                                                                achievement.techStacks.slice(0, 3).map((achievementTechStack) => {
+                                                                    const TechStackIcon = techStacks.find((techStack) => techStack.id === achievementTechStack).icon;
+                                                                    return (
+                                                                        <Grid item md={3} key={achievementTechStack}>
+                                                                            <TechStackIcon fontSize="large" color="pink" />
+                                                                        </Grid>
+                                                                    )
+                                                                })
+                                                            }
+                                                            {
+                                                                achievement.techStacks.length > 3 ?
+                                                                    <Grid item md={3}>
+                                                                        <Avatar sx={{ width: 40, height: 40 }}>{`${'+'}${achievement.techStacks.length - 3}`}</Avatar>
+                                                                    </Grid> : null
+                                                            }
+                                                        </Grid>
+                                                    </Grid>
 
+                                                    <Grid item md={12}>
+                                                        <Grid container>
+                                                            <Grid item md={6}>
+                                                                {(achievement.type === "project" || achievement.validTill) ? null : null}
+                                                            </Grid>
+                                                            <Grid item md={6}>
+                                                                {(achievement.type === "project" || achievement.validTill) ? null : null}
+                                                            </Grid>
+                                                        </Grid>
+                                                    </Grid>
+
+                                                    <Grid item md={12}>
+                                                        <Grid container>
+
+                                                            <Grid item md={6}>
+                                                                {(achievement.type === "project" || achievement.validTill) ? null : null}
+                                                            </Grid>
+                                                        </Grid>
+                                                    </Grid>
+                                                </Grid>
                                             </Grid>
                                         </Grid>
                                     </Box>
@@ -83,7 +134,13 @@ const AchievementsViewer = () => {
                 })}
             </Grid>
 
-            <AchievementDetails open={showDetails} achievement={selectedAchievement} setShowDetails={setShowDetails} />
+            {
+                selectedAchievement ?
+                    <AchievementDetails
+                        open={showDetails} setShowDetails={setShowDetails} showAnotherAchievement={showAchievementDetailsByIndex}
+                        achievement={selectedAchievement} achievementIndex={selectedAchievementIndex} totalAchievements={filteredAchievements.length}
+                    /> : null
+            }
         </>
     );
 }
